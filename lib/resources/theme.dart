@@ -5,6 +5,7 @@ import '/resources/colors.dart';
 class AppThemes {
   static final lightTheme = ThemeData(
       primaryColor: AppColors.lightBlue,
+      fontFamily: 'JosefinSans',
       brightness: Brightness.light,
       scaffoldBackgroundColor: AppColors.white,
       canvasColor: AppColors.lightGrey,
@@ -29,6 +30,7 @@ class AppThemes {
   static final darkTheme = ThemeData(
       primaryColor: AppColors.darkBlue,
       brightness: Brightness.dark,
+      fontFamily: 'JosefinSans',
       scaffoldBackgroundColor: AppColors.black,
       canvasColor: AppColors.darkGrey,
       primaryTextTheme: darkTextTheme,

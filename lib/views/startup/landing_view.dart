@@ -33,11 +33,11 @@ class _LandingViewState extends State<LandingView> {
           const Text(
             'Create Account',
             style: TextStyle(
-              fontSize: 24,
+              fontSize: 30,
               fontWeight: FontWeight.w700,
             ),
           ),
-          45.0.sbH,
+          185.0.sbH,
           SizedBox(
             width: CalcWidth(context, 320, maxWidth: 300),
             height: CalcHeight(context, 320, maxHeight: 50),
@@ -48,7 +48,7 @@ class _LandingViewState extends State<LandingView> {
               },
             ),
           ),
-          85.0.sbH,
+          30.0.sbH,
           SizedBox(
             width: CalcWidth(context, 320, maxWidth: 300),
             height: CalcHeight(context, 320, maxHeight: 50),

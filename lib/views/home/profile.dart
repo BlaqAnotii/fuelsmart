@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_template/resources/colors.dart';
+import 'package:flutter_template/services/app_cache.dart';
+import 'package:flutter_template/services/locator.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -10,25 +12,60 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   int counter = 0;
+
+  AppData cache = getIt<AppData>();
+
+  String lastname = '';
+  String firstname = '';
+  String city = '';
+  String state = '';
+  String gender = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _name();
+  }
+
+  Future<void> _name() async {
+    String? lname = cache.getStringPreference('last_name');
+    String? fname = cache.getStringPreference('first_name');
+    String? gend = cache.getStringPreference('gender');
+    String? citi = cache.getStringPreference('city');
+    String? stat = cache.getStringPreference('state');
+
+    setState(() {
+      if (lname != null) {
+        lastname = lname;
+      }
+      if (fname != null) {
+        firstname = fname;
+      }
+      if (citi != null) {
+        city = citi;
+      }
+      if (gend != null) {
+        gender = gend;
+      }
+      if (stat != null) {
+        state = stat;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColors.darkBlue,
         onPressed: () {
           setState(() {
             counter = counter + 1;
           });
         },
-        child: Container(
-          width: 60,
-          height: 60,
-          decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              gradient: LinearGradient(colors: [
-                AppColors.darkBlue,
-                Color.fromARGB(255, 24, 124, 24)
-              ])),
-          child: const Icon(Icons.add),
+        child: const Icon(
+          Icons.edit,
+          color: AppColors.white,
         ),
       ),
       body: Stack(
@@ -47,33 +84,23 @@ class _ProfileState extends State<Profile> {
                       ],
                     ),
                   ),
-                  child: const Column(children: [
-                    SizedBox(
+                  child: Column(children: [
+                    const SizedBox(
                       height: 110.0,
                     ),
-                    CircleAvatar(
+                    const CircleAvatar(
                       radius: 65.0,
-                      backgroundImage: AssetImage('assets/images/avatar.jpg'),
+                      backgroundImage: AssetImage('assets/images/avatar1.jpg'),
                       backgroundColor: Colors.white,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
-                    Text('Erza Scarlet',
-                        style: TextStyle(
+                    Text('$firstname $lastname',
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 20.0,
                         )),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Text(
-                      'S Class Mage',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15.0,
-                      ),
-                    )
                   ]),
                 ),
               ),
@@ -265,7 +292,7 @@ class _ProfileState extends State<Profile> {
                         child: Column(
                       children: [
                         Text(
-                          'Battles',
+                          'Gender',
                           style: TextStyle(
                               color: Colors.grey[400], fontSize: 14.0),
                         ),
@@ -273,7 +300,7 @@ class _ProfileState extends State<Profile> {
                           height: 5.0,
                         ),
                         Text(
-                          "$counter",
+                          gender,
                           style: const TextStyle(
                             fontSize: 15.0,
                           ),
@@ -283,16 +310,16 @@ class _ProfileState extends State<Profile> {
                     Container(
                       child: Column(children: [
                         Text(
-                          'Birthday',
+                          'City',
                           style: TextStyle(
                               color: Colors.grey[400], fontSize: 14.0),
                         ),
                         const SizedBox(
                           height: 5.0,
                         ),
-                        const Text(
-                          'April 7th',
-                          style: TextStyle(
+                        Text(
+                          city,
+                          style: const TextStyle(
                             fontSize: 15.0,
                           ),
                         )
@@ -302,16 +329,16 @@ class _ProfileState extends State<Profile> {
                         child: Column(
                       children: [
                         Text(
-                          'Age',
+                          'State',
                           style: TextStyle(
                               color: Colors.grey[400], fontSize: 14.0),
                         ),
                         const SizedBox(
                           height: 5.0,
                         ),
-                        const Text(
-                          '19 yrs',
-                          style: TextStyle(
+                        Text(
+                          state,
+                          style: const TextStyle(
                             fontSize: 15.0,
                           ),
                         )

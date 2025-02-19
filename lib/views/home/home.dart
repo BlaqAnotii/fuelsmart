@@ -6,6 +6,7 @@ import 'package:flutter_template/data/https.dart';
 import 'package:flutter_template/resources/colors.dart';
 import 'package:flutter_template/resources/events.dart';
 import 'package:flutter_template/services/app_cache.dart';
+import 'package:flutter_template/services/locator.dart';
 import 'package:flutter_template/services/navigation_service.dart';
 import 'package:flutter_template/utils/button.dart';
 import 'package:flutter_template/utils/filter.dart';
@@ -84,6 +85,31 @@ class _HomeScreenState extends State<HomeScreen> {
     'V12',
   ];
 
+  AppData cache = getIt<AppData>();
+
+  String lastname = '';
+  String firstname = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _name();
+  }
+
+  Future<void> _name() async {
+    String? lname = cache.getStringPreference('last_name');
+    String? fname = cache.getStringPreference('first_name');
+
+    setState(() {
+      if (lname != null) {
+        lastname = lname;
+      }
+      if (fname != null) {
+        firstname = fname;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseView<AuthViewModel>(
@@ -109,13 +135,13 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
           centerTitle: false,
-          title: const Text(
-            "Welcome, John Doe",
-            style: TextStyle(
+          title: Text(
+            "Welcome, $firstname $lastname",
+            style: const TextStyle(
                 color: Colors.black,
                 fontSize: 14,
-                fontWeight: FontWeight.w500,
-                fontFamily: "Inter"),
+                fontWeight: FontWeight.w600,
+                fontFamily: 'JosefinSans'),
           ),
           actions: const [
             Padding(
@@ -166,10 +192,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   title: const Text(
                     "Home",
                     style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: "Inter"),
+                      color: Colors.white,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ),
                 ListTile(
@@ -189,10 +215,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   title: const Text(
                     "Profile",
                     style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: "Inter"),
+                      color: Colors.white,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ),
                 const ListTile(
@@ -209,10 +235,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   title: Text(
                     "Cart",
                     style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: "Inter"),
+                      color: Colors.white,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ),
                 const ListTile(
@@ -229,10 +255,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   title: Text(
                     "Favorites",
                     style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: "Inter"),
+                      color: Colors.white,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ),
                 const ListTile(
@@ -249,10 +275,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   title: Text(
                     "Settings",
                     style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: "Inter"),
+                      color: Colors.white,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -279,10 +305,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   title: const Text(
                     "Log out",
                     style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: "Inter"),
+                      color: Colors.white,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ),
               ],
@@ -389,10 +415,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: const Text(
                           "Search",
                           style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: "Inter"),
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
                     ],
@@ -412,9 +438,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     const Text(
                       "Featured",
                       style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: "Inter"),
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -436,7 +462,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         "View all",
                         style: TextStyle(
                           fontSize: 15,
-                          fontFamily: "Inter",
                           color: Colors.white,
                         ),
                       ),
@@ -592,10 +617,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                         child: const Text(
                                           "Add to Cart",
                                           style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w400,
-                                              fontFamily: "Inter"),
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -621,9 +646,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     const Text(
                       "Recent Transaction",
                       style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: "Inter"),
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -645,7 +670,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         "View all",
                         style: TextStyle(
                           fontSize: 15,
-                          fontFamily: "Inter",
                           color: Colors.white,
                         ),
                       ),
@@ -833,7 +857,7 @@ class _HomeScreenState extends State<HomeScreen> {
               //             color: Colors.red,
               //             fontSize:  16 : 23,
               //             fontWeight: FontWeight.w600,
-              //             fontFamily: "Inter"),
+              //             ),
               //       ),
               //       ElevatedButton(
               //         style: ElevatedButton.styleFrom(
@@ -855,7 +879,7 @@ class _HomeScreenState extends State<HomeScreen> {
               //           "View all",
               //           style: TextStyle(
               //             fontSize:  15 : 20,
-              //             fontFamily: "Inter",
+              //             ,
               //             color: Colors.white,
               //           ),
               //         ),
@@ -899,7 +923,7 @@ class _HomeScreenState extends State<HomeScreen> {
               //             color: AppColors.darkBlue,
               //             fontSize:  16 : 23,
               //             fontWeight: FontWeight.w600,
-              //             fontFamily: "Inter"),
+              //             ),
               //       ),
               //       ElevatedButton(
               //         style: ElevatedButton.styleFrom(
@@ -921,7 +945,7 @@ class _HomeScreenState extends State<HomeScreen> {
               //           "View all",
               //           style: TextStyle(
               //             fontSize:  15 : 20,
-              //             fontFamily: "Inter",
+              //             ,
               //             color: Colors.white,
               //           ),
               //         ),
